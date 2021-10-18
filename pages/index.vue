@@ -1,7 +1,19 @@
+<style scoped>
+  .upload-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .upload-button {
+    width: 80px;
+    margin-top: 20px;
+  }
+</style>
 <template>
+  
   <div class="container">
-    <div>
+    <div class="upload-container">
       <input
+        class="form-control-file"
         id="file-input"
         type="file"
         ref="fileInput"
@@ -9,28 +21,38 @@
         @change="onFilePicked"
         required
       />
-      <cld-image
-        public-id="content/Bmvp (1)"
-        width="200"
-        crop="scale"
-        fetchFormat="auto"
-        quality="auto"
-        loading="lazy"
-      />
 
-      <cld-image public-id="content/Bmvp (1)">
-        <cld-transformation
-          width="200"
-          crop="scale"
-          radius="max"
+      <button class="btn btn-primary upload-button" 
+              @click="cloudinary">Upload</button>
+    </div>
+    <div>
+        <cld-image
+          public-id="/content/woman"
           fetchFormat="auto"
           quality="auto"
           loading="lazy"
-          border="3px_solid_rgb:9ACD32"
-        />
-      </cld-image>
-      <button @click="cloudinary">Upload</button>
-    </div>
+        >
+          <cld-transformation
+            width="200"
+            height="200"
+            gravity="face"
+            crop="fill"
+            radius="max"
+          />
+        </cld-image>
+        <cld-image
+          public-id="/content/man"
+          loading="lazy"
+        >
+          <cld-transformation
+            width="200"
+            height="200"
+            gravity="face"
+            crop="fill"
+            radius="max"
+          />
+        </cld-image>
+      </div>
   </div>
 </template>
 
@@ -51,7 +73,7 @@ export default {
         .upload(this.formData.imageUrl, {
           public_id: this.formData.imageName,
           folder: "content",
-          upload_preset: "gurpobn6"
+          upload_preset: "hackb4xmas"
         })
         .then(res => console.log(res))
         .catch(err => cosole.log(err));
